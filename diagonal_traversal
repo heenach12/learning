@@ -1,0 +1,28 @@
+def diagonal_traverse(arr):
+    rows = len(arr)
+    cols = len(arr[0])
+    for k in range(rows):
+        i = k
+        j = 0
+        while(i >= 0):
+            print(arr[i][j], end=" ")
+            i -= 1
+            j += 1
+        print(" ")
+
+    for k in range(1, cols):
+        i = rows - 1
+        j = k
+        while(j <= (cols-1)):
+            print(arr[i][j], end=" ")
+            i -= 1
+            j += 1
+        print(" ")
+
+
+arr = [["a", "b", "c", "d"],
+       ["e", "f", "g", "h"],
+       ["i", "j", "k",  "l"],
+       ["m", "n", "o", "p"]]
+
+diagonal_traverse(arr=arr)
