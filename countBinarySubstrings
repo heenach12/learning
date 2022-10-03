@@ -1,0 +1,15 @@
+def countBinarySubstrings(s: str) -> int:
+    temp, lis, res = 1, [], 0
+    for i in range(len(s) - 1):
+        if (s[i] == s[i + 1]):
+            temp += 1
+        else:
+            lis.append(temp)
+            temp = 1
+    lis.append(temp)  # if else part not run in last
+    for j in range(len(lis) - 1):
+        res += min(lis[j], lis[j + 1])
+    return res
+
+s = "00110011"
+print(countBinarySubstrings(s))
