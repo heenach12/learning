@@ -1,0 +1,16 @@
+from typing import List
+
+
+def wave_traverse(a: List[List[int]]):
+    for j in range(len(a[0])):
+        if j%2 == 0:
+            for i in range(0, len(a)):
+                print(a[i][j], end=" ")
+        else:
+            for i in range(len(a)-1, -1, -1):
+                print(a[i][j], end=" ")
+
+
+b = [[1, 2, 3], [3, 2, 1]]
+wave_traverse(a=b)
+
