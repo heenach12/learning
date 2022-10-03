@@ -1,0 +1,14 @@
+
+def maxDifference(px):
+    n = len(px)
+    res = 0
+    min_elem = px[0]
+    for i in range(1, n):
+        if  px[i] < min_elem:
+            min_elem = px[i]
+        diff = px[i] - min_elem
+        if diff > res:
+            res = diff
+    if res == 0:
+        return -1
+    return res
