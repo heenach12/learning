@@ -1,0 +1,51 @@
+from typing import List
+
+
+def add_matrix(a: List[List[int]], b: List[List[int]]):
+    a_rows = len(a)
+    a_cols = len(a[0])
+    b_rows = len(b)
+    b_cols = len(b[0])
+    if a_rows !=a_cols and b_rows != b_cols:
+        return "Addition not possible"
+    c = [[0] * b_cols for _ in range(a_rows)]
+    print("c is", c)
+    for i in range(a_rows):
+        for j in range(b_cols):
+            c[i][j] = a[i][j] + b[i][j]
+
+    for i in range(a_rows):
+        for j in range(b_cols):
+            print(c[i][j], end=" ")
+        print(" ")
+
+
+def multiply_matrxi(a: List[List[int]], b: List[List[int]]):
+    a_rows = len(a)
+    a_cols = len(a[0])
+    b_rows = len(b)
+    b_cols = len(b[0])
+    if a_cols != b_rows:
+        return "multiplication not possible"
+    c = [[0]*b_cols for _ in range(a_rows)]
+    print("c is", c)
+    for i in range(a_rows):
+        for j in range(b_cols):
+            for k in range(a_cols):
+                c[i][j] += a[i][k]*b[k][j]
+
+
+    for i in range(a_rows):
+        for j in range(b_cols):
+            print(c[i][j], end=" ")
+        print(" ")
+
+
+a=[[1,2], [2,1]]
+b = [[1,2,3], [3, 2,1]]
+multiply_matrxi(a=a, b=b)
+
+print("Addition is")
+a=[[1,2], [2,1]]
+b=[[1,2], [2,1]]
+add_matrix(a, b)
