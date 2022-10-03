@@ -1,0 +1,52 @@
+# Online Python compiler (interpreter) to run Python online.
+# Write Python 3 code in this online editor and run it.
+print("Hello world")
+
+nums_list = [10, 8 , 15, 12, 6, 20, 1]
+
+
+def sort_numbers(nums_list):
+    nums_dict = {}
+    rank_list = []
+    new_list = sorted(nums_list)
+    for i in range(len(new_list)):
+        nums_dict[new_list[i]] = i+1
+
+    for i in nums_list:
+        rank_list.append(nums_dict[i])
+    return rank_list
+
+
+rank_list=sort_numbers(nums_list)
+print(rank_list)
+
+from collections import Counter
+
+# Input: strs = ["eat","tea","tan","ate","nat","bat"]
+# Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+
+strs = ["eat", "tea", "tan", "ate", "nat", "bat"]
+
+
+def anagram_groups(strs):
+    anagram_dict = {}
+    for i in strs:
+        sorted_str_list = sorted(i)
+        sorted_str = "".join(sorted_str_list)
+        if sorted_str not in anagram_dict:
+            anagram_dict[sorted_str] = [i]
+        else:
+            anagram_dict[sorted_str].append(i)
+
+    return anagram_dict.values()
+
+
+result = anagram_groups(strs)
+print(result)
+
+
+
+
+
+
+
