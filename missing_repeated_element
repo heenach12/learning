@@ -1,0 +1,15 @@
+def missing_repeated_element(arr):
+    hmap = {}
+    mlen = len(arr)
+    for i in arr:
+        if i not in hmap:
+            hmap[i] = True
+        else:
+            print("repeating", i)
+    for i in range(1, mlen+1):
+        if i not in hmap:
+            print("missing", i)
+
+
+arr = [4, 3, 6, 2, 1, 1]
+missing_repeated_element(arr)
