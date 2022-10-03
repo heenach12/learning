@@ -1,0 +1,53 @@
+def reverse(arr, start, end):
+    while(start < end):
+        arr[start], arr[end] = arr[end], arr[start]
+        start += 1
+        end -= 1
+
+
+def rotate(arr, arr_size, d):
+    if d == 0:
+        return arr_size
+    d = d%arr_size
+    if d < 0:
+        d = d + arr_size
+
+    reverse(arr, 0, arr_size-d-1)
+    reverse(arr, arr_size-d, arr_size-1)
+    reverse(arr, 0, arr_size-1)
+
+a = [1,2,3,4,5, 6, 7]
+
+for i in a:
+    print(i, end=" ")
+
+d=2
+rotate(a, len(a), d)
+
+print("$$$$$$$$")
+for i in a:
+    print(i, end=" ")
+
+
+# cyclically rotate an array by one
+
+def rotate_by_one(arr, n):
+    x = arr[n-1]
+    for i in range(n-1, 0, -1):
+        arr[i] = arr[i-1]
+    arr[0] = x
+
+
+arr = [1, 2, 3, 4, 5]
+n = len(arr)
+print("sdfds")
+print("       ")
+for i in range(0, n):
+
+    print("array by one", arr[i], end=' ')
+
+rotate_by_one(arr, n)
+
+print("Rotated array is")
+for i in range(0, n):
+    print(arr[i], end=' ')
