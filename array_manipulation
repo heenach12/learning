@@ -1,0 +1,22 @@
+def arrayManipulation(n, queries, m):
+    # Write your code here
+    arr = [0] * (n + 2)
+
+    for a, b, k in queries:
+        arr[a] += k
+        arr[b + 1] -= k
+
+    maxnum = temp = 0
+    for val in arr:
+        temp += val
+        maxnum = max(maxnum, temp)
+
+    return maxnum
+
+n = 4
+m = 3
+queries = [[2,3, 603],
+           [1,1, 286],
+           [4,4,882]]
+
+print(arrayManipulation(n, queries, m))
