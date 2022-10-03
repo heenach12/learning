@@ -1,0 +1,276 @@
+from queue import Queue
+class Node:
+    def __init__(self, val =0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+class Pair:
+    def __init__(self, node=None, state=None):
+        self.node = node
+        self.state = state
+
+
+
+
+
+def create_tree():
+    arr = [50, 25, 12, None, None, 37, 30, None, None, None, 75, 62, None, 70, None, None, 87, None, None]
+    root = Node(arr[0])
+    st = []
+    pair = Pair(root, 1)
+    st.append(pair)
+    print(st)
+    idx = 0
+    while (len(st) > 0):
+        top_stack = st[-1]
+        if top_stack.state == 1:
+            idx += 1
+            if arr[idx] != None:
+                top_stack.node.left = Node(arr[idx], None, None)
+                left_pair = Pair(top_stack.node.left, 1)
+                st.append(left_pair)
+            else:
+                top_stack.node.left = None
+            top_stack.state += 1
+        elif top_stack.state == 2:
+            idx += 1
+            if arr[idx] !=None:
+                top_stack.node.right = Node(arr[idx], None, None)
+                right_pair = Pair(top_stack.node.right, 1)
+                st.append(right_pair)
+            else:
+                top_stack.node.right = None
+            top_stack.state += 1
+        elif top_stack.state == 3:
+            st.pop()
+    return root
+
+
+def display(node):
+    if node == None:
+        return
+    res = ""
+    res += str(node.left.val) if node.left else "."
+    res += "<-" + str(node.val) + "->"
+    res += str(node.right.val) if node.right  else "."
+    print(res)
+
+    display(node.left)
+    display(node.right)
+
+
+def size(node):
+    if node == None:
+        return 0
+    left_size = size(node.left)
+    right_size = size(node.right)
+    size_of_tree = left_size + right_size + 1
+    return size_of_tree
+
+
+def sum_tree(node):
+    if node == None:
+        return 0
+    left_sum = sum_tree(node.left)
+    right_sum = sum_tree(node.right)
+    total_sum = left_sum + right_sum + node.val
+    return total_sum
+
+
+def max_of_tree(node):
+    if node == None:
+        return float("-infinity")
+    left_max = max_of_tree(node.left)
+    right_max = max_of_tree(node.right)
+    max_num = max(node.val, max(left_max, right_max))
+    return max_num
+
+
+def height_of_tree(node):
+    if node == None:
+        return -1 # -1 for edges and 0 for nodes
+    left_height = height_of_tree(node.left)
+    right_height = height_of_tree(node.right)
+    total_height = max(left_height, right_height) + 1
+    return total_height
+
+
+def pre_order_traversal(node):
+    if node == None:
+        return
+    print(node.val, end=" ")
+    pre_order_traversal(node.left)
+    pre_order_traversal(node.right)
+
+
+def in_order_traversal(node):
+    if node == None:
+        return
+    in_order_traversal(node.left)
+    print(node.val, end=" ")
+    in_order_traversal(node.right)
+
+
+def post_order_traversal(node):
+    if node == None:
+        return None
+    post_order_traversal(node.left)
+    post_order_traversal(node.right)
+    print(node.val, end=" ")
+
+
+def level_order_traversal(node):
+    q = []
+    q.append(node)
+    while(len(q) > 0):
+        count = len(q)
+        for i in range(count):
+            node = q.pop(0)
+            print(node.val, end=" ")
+
+            if node.left != None:
+                q.append(node.left)
+
+            if node.right != None:
+                q.append(node.right)
+        print(" ")
+
+
+def traversals_iterative(node):
+    st = []
+    root_pair = Pair(node, 1)
+    st.append(root_pair)
+    pre = []
+    in_order = []
+    post_order = []
+
+    while(len(st) > 0):
+        top = st[-1]
+        if top.state == 1:
+            pre.append(top.node.val)
+            top.state += 1
+            if top.node.left != None:
+                left_p = Pair(top.node.left, 1)
+                st.append(left_p)
+        elif top.state == 2:
+            in_order.append(top.node.val)
+            top.state += 1
+            if top.node.right != None:
+                right_p = Pair(top.node.right, 1)
+                st.append(right_p)
+        else:
+            post_order.append(top.node.val)
+            st.pop()
+    print("pre", pre)
+    print("in", in_order)
+    print("post", post_order)
+
+
+def node_to_root_path(node, data, path):
+    if node == None:
+        return False, path
+    if node.val == data:
+        path.append(node.val)
+        return True, path
+    filtree, path = node_to_root_path(node.left, data, path)
+    if filtree:
+        path.append(node.val)
+        return True, path
+    firtree, path = node_to_root_path(node.right, data, path)
+    if firtree:
+        path.append(node.val)
+        return True, path
+    print("the path is *", path)
+    return False, path
+
+
+def node_to_root_path_with_root(node, data, new_path):
+    if node == None:
+        return False, new_path
+    if node.val == data:
+        new_path.append(node)
+        return True, new_path
+    filtree, new_path = node_to_root_path_with_root(node.left, data, new_path)
+    if filtree:
+        new_path.append(node)
+        return True, new_path
+    firtree, new_path = node_to_root_path_with_root(node.right, data, new_path)
+    if firtree:
+        new_path.append(node)
+        return True, new_path
+    print("the path is *", new_path)
+    return False, new_path
+
+
+def k_level_down(node, k):
+    if node == None or k<0:
+        return
+    if k == 0:
+        print(node.val, end=" ")
+    k_level_down(node.left, k-1)
+    k_level_down(node.right, k-1)
+
+
+def k_level_down_for_far(node, k, blocker):
+    if node == None or k<0 or node == blocker:
+        return
+    if k ==0:
+        print(node.val, end=" ")
+    k_level_down_for_far(node.left, k-1, blocker)
+    k_level_down_for_far(node.right, k-1, blocker)
+
+
+def print_k_level_far(node, data, k):
+    node_path_arr = []
+    find, node_path = node_to_root_path_with_root(node, data, node_path_arr)
+    for i in range(len(node_path)):
+        blocker = None if i == 0 else node_path[i-1]
+        k_level_down_for_far(node_path[i], k-i, blocker)
+
+class BstPair:
+    def __init__(self, is_bst=None, min_val= float("infinity"), max_val=float("-infinity")):
+        self.is_bst = is_bst
+        self.min_val = min_val
+        self.max_val = max_val
+
+
+def is_bst_tree(node):
+    if node == None:
+        bp_pair: BstPair = BstPair()
+        bp_pair.min = float("infinity")
+        bp_pair.max = float("-infinity")
+        bp_pair.is_bst = True
+        return bp_pair
+
+    left_bst: BstPair = is_bst_tree(node.left)
+    right_bst = is_bst_tree(node.right)
+    my_pair = BstPair()
+    my_pair.is_bst = left_bst.is_bst and right_bst.is_bst and (node.val >= left_bst.max_val and node.val <=right_bst.min_val)
+    my_pair.min = min(node.val, min(left_bst.min_val, right_bst.min_val))
+    my_pair.max = max(node.val, max(left_bst.max_val, right_bst.max_val))
+    return my_pair
+
+path = []
+root = create_tree()
+display(root)
+node_path = []
+#
+# print("Size", size(root))
+# print("Sum", sum_tree(root))
+# print("Max", max_of_tree(root))
+# print("Height", height_of_tree(root))
+print("Pre", pre_order_traversal(root))
+print("Inorder", in_order_traversal(root))
+print("Post", post_order_traversal(root))
+print("level order", level_order_traversal(root))
+traversals_iterative(root)
+a, b =node_to_root_path(root, 62, path)
+print("the path is", a, b)
+k_level_down(root, 2)
+print("k far", print_k_level_far(root, 37, 1))
+print("***********")
+qw = is_bst_tree(root)
+print("Is tree binary search tree", is_bst_tree(root))
+print(qw.is_bst)
