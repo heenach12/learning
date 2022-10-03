@@ -1,0 +1,38 @@
+def exit_point_array(a):
+    d = 0
+    i = 0
+    j = 0
+
+    while(True):
+        d = (d + a[i][j])%4
+
+        if d == 0:
+            j += 1
+        elif d == 1:
+            i += 1
+        elif d == 2:
+            j -= 1
+        elif d == 3:
+            i -= 1
+
+        if i < 0:
+            i += 1
+            break
+        elif j < 0:
+            j += 1
+            break
+        elif i == len(a):
+            i -= 1
+            break
+        elif j == len(a[0]):
+            j -= 1
+            break
+    return i, j
+
+
+a = [[0, 0, 1, 0],
+     [1, 0, 0, 1],
+     [0, 0, 0, 1],
+     [1, 0, 1, 0]]
+
+print(exit_point_array(a))
