@@ -1,0 +1,37 @@
+a2=[3,3,3,3,3]
+a1 = [2,2,2,2]
+
+def get_diff(a1, a2, a1_len, a2_len):
+    i = a1_len
+    j = a2_len
+    k = a2_len
+    diff = []
+    c =0
+
+    while(k>=0):
+        d = 0
+        alv = a1[i] if i >= 0 else 0
+        if a2[j] + c >= alv:
+            d = a2[j] + c - alv
+            c = 0
+        else:
+            d = a2[j]+c+10 - alv
+            c = -1
+
+        diff[k] = d
+        i -=1
+        j-=1
+        k-=1
+
+        idx = 0
+        while(idx<len(diff)):
+            if diff[idx] == 0:
+                idx +=1
+            else:
+                break
+
+        while(idx<len(diff)):
+            print(diff[idx])
+
+
+get_diff(a1, a2, len(a1), len(a2))
