@@ -1,0 +1,29 @@
+def rotate_by_ninety(arr):
+    rows = len(arr)
+    columns  = len(arr[0])
+    for i in range(rows):
+        for j in range(i, columns):
+            arr[i][j], arr[j][i] = arr[j][i], arr[i][j]
+
+    for i in range(rows):
+        start = 0
+        end = len(arr[i]) - 1
+        while(start < end):
+            arr[i][start], arr[i][end] = arr[i][end], arr[i][start]
+            start += 1
+            end -= 1
+
+    return arr
+
+
+arr = [["a", "b", "c", "d"],
+       ["e", "f", "g", "h"],
+       ["i", "j", "k",  "l"],
+       ["m", "n", "o", "p"]]
+
+arr = rotate_by_ninety(arr=arr)
+
+for i in range(len(arr)):
+    for j in range(len(arr[0])):
+        print(arr[i][j], end=" ")
+    print("")
