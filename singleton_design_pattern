@@ -1,0 +1,25 @@
+class SingletonPattern:
+    __instance__ = None
+
+    def __init__(self):
+        if SingletonPattern.__instance__ is None:
+            SingletonPattern.__instance__ = self
+        else:
+            raise Exception("You cannot create object of singleton class more than once.")
+
+    @staticmethod
+    def get_instance():
+        if SingletonPattern.__instance__:
+            return SingletonPattern.__instance__
+        else:
+            return SingletonPattern()
+
+
+a = SingletonPattern()
+print(a)
+print(a.get_instance())
+
+a2 = SingletonPattern()
+print(a2)
+
+print(a2.get_instance())
