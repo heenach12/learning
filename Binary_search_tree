@@ -1,0 +1,146 @@
+class BinarySearchTree:
+    def __init__(self, val= None, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+def sorted_array_to_bst(arr):
+    if not arr:
+        return None
+
+    mid = len(arr)//2
+
+    root = BinarySearchTree(arr[mid])
+    root.left = sorted_array_to_bst(arr[:mid])
+    root.right = sorted_array_to_bst(arr[mid+1:])
+    return root
+
+
+def display(node):
+    if node == None:
+        return
+    res = ""
+    res += str(node.left.val) if node.left else "."
+    res += "<-" + str(node.val) + "->"
+    res += str(node.right.val) if node.right else "."
+    print(res)
+
+    display(node.left)
+    display(node.right)
+
+
+def size_of_tree(node):
+    if node is None:
+        return 0
+    left_nodes = size_of_tree(node.left)
+    right_nodes = size_of_tree(node.right)
+    return left_nodes+right_nodes+1
+
+
+def sum_of_tree(node):
+    if node is None:
+        return 0
+    left_Sum = sum_of_tree(node.left)
+    right_sum = sum_of_tree(node.right)
+    total_sum = left_Sum + right_sum + node.val
+    return total_sum
+
+
+def max_of_tree(node):
+    if node.right is not None:
+        return max_of_tree(node.right)
+    else:
+        return node.val
+
+
+def min_of_tree(node):
+    if node.left is not None:
+        return min_of_tree(node.left)
+    else:
+        return node.val
+
+
+def search_tree(node, data):
+    if node == None:
+        return False
+    elif data < node.val:
+        return search_tree(node.left, data)
+    elif data > node.val:
+        return search_tree(node.right, data)
+    else:
+        return True
+
+
+def insert_node(root, key):
+    if root == None:
+        return BinarySearchTree(key)
+    else:
+        if root.val == key:
+            return root
+        elif key < root.val:
+            root.left = insert_node(root.left, key)
+        else:
+            root.right = insert_node(root.right, key)
+    return root
+
+
+def minValueNode(node):
+        current = node
+        while (current.left is not None):
+            current = current.left
+        return current
+
+
+def deleteNode(root, key):
+    if root is None:
+        return root
+    if root.val == key:
+        if root.left == None:
+            return root.right
+        if root.right == None:
+            return root.left
+        if root.left != None and root.right != None:
+            rmin =  minValueNode(root.right)
+            root.val = rmin.val
+            root.right = deleteNode(root.right, rmin.val)
+    if key < root.val:
+        root.left = deleteNode(root.left, key)
+    elif key > root.val:
+        root.right = deleteNode(root.right, key)
+    else:
+        if root.left is None:
+            return root.right
+        if root.right is None:
+            return root.left
+    return root
+
+
+def in_order_traversak(root):
+    if root:
+        in_order_traversak(root.left)
+        print(root.val, end=" ")
+        in_order_traversak(root.right)
+
+arr = [12, 25, 37, 50, 62, 75, 87]
+
+root = sorted_array_to_bst(arr)
+display(root)
+
+print(size_of_tree(root))
+
+print("sum is", sum_of_tree(root))
+
+print("max of trre", max_of_tree(root))
+
+print("min of tree", min_of_tree(root))
+
+print("find eleme", search_tree(root, 3227))
+
+# print("add node", insert_node(root, 50))
+
+in_order_traversak(root)
+
+deleteNode(root, 25)
+print("remove node")
+in_order_traversak(root)
