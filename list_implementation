@@ -1,0 +1,97 @@
+a = []
+print(id(a))
+
+a.append(1)
+print(id(a), id(a[0]))
+print("*******")
+
+a.append(2)
+for i in a:
+    print(i, id(i))
+print("*******")
+
+
+a.insert(1, "A")
+for i in a:
+    print(i, id(i))
+print("*******")
+
+a.insert(1, "B")
+for i in a:
+    print(i, id(i))
+print("*******")
+
+
+print(len(a))
+print(id(len(a)))
+
+print("##########")
+
+
+a = []
+print(id(a))
+
+a.append(1)
+print(id(a), id(a[0]))
+print("*******")
+
+a.append(2)
+for i in a:
+    print(i, id(i))
+print("*******")
+
+
+a.insert(1, 78)
+for i in a:
+    print(i, id(i))
+print("*******")
+
+a.insert(1, 90)
+for i in a:
+    print(i, id(i))
+print("*******")
+
+
+print(len(a))
+print(id(len(a)))
+
+
+
+print("##########")
+
+
+b = []
+print(id(b))
+
+b.append(25)
+print(id(b), id(b[0]), type(b[0]))
+print("*******")
+
+b.append(29)
+for i in b:
+    print(i, id(i), type(i))
+print("*******")
+
+
+b.insert(1, 38)
+for i in b:
+    print(i, id(i))
+print("*******")
+
+b.insert(1, 20)
+for i in b:
+    print(i, id(i))
+print("*******")
+
+
+print(len(b))
+print(id(len(b)))
+
+print("reverse of the lsit")
+
+
+b.reverse()
+for i in b:
+    print(i, id(i))
+print("*******")
+
